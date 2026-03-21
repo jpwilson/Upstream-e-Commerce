@@ -63,6 +63,7 @@ function Navbar() {
         {/* Center: desktop nav */}
         <nav className="hidden lg:flex items-center gap-6">
           <Link to="/" className="text-sm font-medium text-on-surface/70 hover:text-primary transition-colors">Products</Link>
+          <Link to="/changelog" className="text-sm font-medium text-on-surface/70 hover:text-primary transition-colors">Changelog</Link>
           {user && (
             <>
               <Link to="/orders" className="text-sm font-medium text-on-surface/70 hover:text-primary transition-colors">My Orders</Link>
@@ -138,6 +139,7 @@ function Navbar() {
       {menuOpen && (
         <div className="lg:hidden bg-surface-container-lowest border-t border-outline-variant/20 px-6 py-4 space-y-3">
           <Link to="/" onClick={() => setMenuOpen(false)} className="block text-sm font-medium text-on-surface py-2">Products</Link>
+          <Link to="/changelog" onClick={() => setMenuOpen(false)} className="block text-sm font-medium text-on-surface py-2">Changelog</Link>
           {user ? (
             <>
               <Link to="/orders" onClick={() => setMenuOpen(false)} className="block text-sm font-medium text-on-surface py-2">My Orders</Link>

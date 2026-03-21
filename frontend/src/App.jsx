@@ -10,6 +10,7 @@ import OrderConfirmation from './components/OrderConfirmation';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
+import Changelog from './components/Changelog';
 
 function App() {
   return (
@@ -26,10 +27,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/changelog" element={<Changelog />} />
         </Routes>
       </main>
-      <footer className="bg-inverse-surface text-inverse-on-surface text-center py-6 text-sm">
+      <footer className="bg-inverse-surface text-inverse-on-surface text-center py-6 text-sm space-y-1">
         <p>&copy; 2026 Kid Palace. All rights reserved.</p>
+        <p><a href="/changelog" className="text-inverse-primary hover:underline">Changelog</a></p>
       </footer>
       <BottomNav />
     </div>
