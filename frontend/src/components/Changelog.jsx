@@ -2,8 +2,35 @@ import { Link } from 'react-router-dom';
 
 const REPO_URL = 'https://github.com/jpwilson/kid-palace-ecommerce';
 const INITIAL_COMMIT = '6ee509d';
+const DEPLOY_COMMIT = '4eb7ee6';
+const SPEC_COMMIT = 'cec7501';
 
 const entries = [
+  {
+    date: '2026-03-23',
+    title: 'Deployed to Railway',
+    commit: DEPLOY_COMMIT,
+    items: [
+      'Created multi-stage Dockerfile: Node builds React frontend, Python runs Django with gunicorn',
+      'Django serves the React SPA via WhiteNoise with a catch-all URL for client-side routing',
+      'Added dj-database-url for PostgreSQL support (Railway addon provides DATABASE_URL)',
+      'Configured CSRF/session cookie security for Railway\'s HTTPS proxy',
+      'Made seed_products command idempotent (skips if products already exist)',
+      'entrypoint.sh runs migrations and seeds demo data on every deploy',
+      'Live at https://loving-exploration-production-976f.up.railway.app',
+    ],
+  },
+  {
+    date: '2026-03-23',
+    title: 'Project Spec & Changelog',
+    commit: SPEC_COMMIT,
+    items: [
+      'Created PROJECT_SPEC.md with original assignment text from the hiring platform',
+      'Added /changelog route with this timeline UI',
+      'Initialized git repository',
+      'Pushed to GitHub at https://github.com/jpwilson/kid-palace-ecommerce',
+    ],
+  },
   {
     date: '2026-03-21',
     title: 'Full UI Redesign — Material Design 3 Theme',
