@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const REPO_URL = 'https://github.com/jpwilson/kid-palace-ecommerce';
+const REPO_URL = 'https://github.com/jpwilson/Upstream-e-Commerce';
 const INITIAL_COMMIT = '6ee509d';
 const DEPLOY_COMMIT = '4eb7ee6';
 const SPEC_COMMIT = 'cec7501';
