@@ -192,11 +192,14 @@ class Command(BaseCommand):
     help = "Seed the store with children's literacy products and Unsplash images"
 
     def handle(self, *args, **options):
-        # Clear existing products
+        if Product.objects.exists():
+            self.stdout.write(self.style.SUCCESS("Products already exist, skipping seed."))
+            return
+
+        # Clear any orphaned data
         ProductImage.objects.all().delete()
-        Product.objects.all().delete()
         Category.objects.all().delete()
-        self.stdout.write("Cleared existing catalog.")
+        self.stdout.write("Seeding product catalog...")
 
         # Create categories
         cat_map = {}

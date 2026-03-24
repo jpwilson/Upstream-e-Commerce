@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv()
 
@@ -33,6 +34,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -47,7 +49,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "staticfiles"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -63,10 +65,9 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -89,11 +90,32 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# CORS
-CORS_ALLOWED_ORIGINS = os.getenv(
-    "CORS_ALLOWED_ORIGINS", "http://localhost:5174,http://127.0.0.1:5174"
+# WhiteNoise for static files in production
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# CSRF trusted origins (needed for Railway HTTPS proxy)
+CSRF_TRUSTED_ORIGINS = os.getenv(
+    "CSRF_TRUSTED_ORIGINS", "http://localhost:5174,http://127.0.0.1:5174"
 ).split(",")
-CORS_ALLOW_CREDENTIALS = True
+
+# Production security settings
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+
+# CORS — only needed for local dev (in production, same-origin serving)
+if DEBUG:
+    CORS_ALLOWED_ORIGINS = os.getenv(
+        "CORS_ALLOWED_ORIGINS", "http://localhost:5174,http://127.0.0.1:5174"
+    ).split(",")
+    CORS_ALLOW_CREDENTIALS = True
+else:
+    CORS_ALLOW_ALL_ORIGINS = False
 
 # DRF
 REST_FRAMEWORK = {
