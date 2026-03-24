@@ -20,7 +20,7 @@ if settings.DEBUG:
 # Must be last so it doesn't override API/admin/static routes
 urlpatterns += [
     re_path(
-        r"^(?!api/|admin/|static/|media/).*$",
+        r"^(?!api/|admin/|static/|media/|assets/).*$",
         TemplateView.as_view(template_name="index.html"),
         name="spa-catchall",
     ),

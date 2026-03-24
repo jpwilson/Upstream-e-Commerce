@@ -96,6 +96,8 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+# Serve React build assets at root (Vite outputs /assets/*, not /static/assets/*)
+WHITENOISE_ROOT = STATIC_ROOT
 
 # CSRF trusted origins (needed for Railway HTTPS proxy)
 CSRF_TRUSTED_ORIGINS = os.getenv(
